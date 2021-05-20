@@ -111,7 +111,9 @@ def train(args, model, optimizer, dataloader_train, dataloader_val):
         writer.add_scalar('epoch/loss_epoch_train', float(loss_train_mean), epoch)
         print('loss for train : %f' % (loss_train_mean))
         if epoch % args.checkpoint_step == 0 and epoch != 0:
+            import os
             if not os.path.isdir(args.save_model_path):
+                import os
                 os.mkdir(args.save_model_path)
             torch.save(model.module.state_dict(),
                        os.path.join(args.save_model_path, 'model.pth'))
@@ -175,7 +177,7 @@ def main(params):
     os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda
     model = BiSeNet(args.num_classes, args.context_path)
     if torch.cuda.is_available() and args.use_gpu:
-        model = model.cuda()
+        model = torch.nn.DataParallel(model).cuda()
 
     # build optimizer
     if args.optimizer == 'rmsprop':
