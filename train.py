@@ -210,10 +210,10 @@ if __name__ == '__main__':
         '--num_workers', '8',
         '--num_classes', '21',
         '--cuda', '0',
-        '--batch_size', '16',
-        '--save_model_path', './checkpoints_18_sgd',
+        '--batch_size', '32',
+        '--save_model_path', './checkpoints_18_adam_bs_32',
         '--context_path', 'resnet18',  # set resnet18 or resnet101, only support resnet18 and resnet101
-        '--optimizer', 'sgd',
+        '--optimizer', 'adam',
 
     ]
     main(params)
